@@ -1,34 +1,35 @@
+from collections import deque
 import sys
-
 input = sys.stdin.readline
-N, M = map(int, input().split())
-relation = [[] for i in range(N)]
-stack = []
-result = [0 for i in range(N)]
-
-# 신뢰 관계 저장 -> 인접 리스트
-for _ in range(M):
-    a, b = map(int, input().split())
-    relation[b - 1].append(a - 1)
-
-for i in range(N):
-    visited = [False] * N
-    stack.append(i)
-    visited[i] = True
-
-    # dfs
-    while stack:
-        value = stack.pop()
-        result[i] += 1
-
-        length = len(relation[value])
-        for j in range(length):
-            if not visited[relation[value][j]]:
-                stack.append(relation[value][j])
-                visited[relation[value][j]] = True
-
-answer = []
-max_value = max(result)
-for i in range(N):
-    if result[i] == max_value:
-        print(i + 1, end=" ")
+ 
+n, m = map(int, input().split())
+relationship = [[] for _ in range(n + 1)]
+ 
+for _ in range(m):
+    A, B = map(int, input().split())
+    relationship[B].append(A)
+ 
+def bfs(start):
+    q = deque()
+    q.append(start)
+    cnt = 0
+ 
+    visited = [False] * (n + 1)
+    visited[start] = True
+ 
+    while q:
+        cur = q.popleft()
+        for next in relationship[cur]:
+            if not visited[next]:
+                visited[next] = True
+                q.append(next)
+                cnt += 1
+    return cnt
+ 
+result = []
+for start in range(1, len(relationship)):
+    result.append(bfs(start))
+ 
+for i in range(len(result)):
+    if max(result) == result[i]:
+        print(i + 1)
