@@ -1,7 +1,4 @@
-select category, count(*)
-from (
-    select product_id, left(product_code,2) category
-    from product
-) tmp
-group by category
+select left(product_code, 2) as category, count(*)
+from product
+group by 1
 order by 1
