@@ -2,13 +2,13 @@ import java.io.*;
 import java.util.*;
 
 class Node {
-   int x, y, k, D;
-   public Node(int x, int y, int k, int D) {
-       this.x = x;
-       this.y = y;
-       this.k = k;
-       this.D = D;
-   }
+    int x, y, k, D;
+    public Node(int x, int y, int k, int D) {
+        this.x = x;
+        this.y = y;
+        this.k = k;
+        this.D = D;
+    }
 }
 
 public class Main {
