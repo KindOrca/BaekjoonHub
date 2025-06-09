@@ -10,12 +10,7 @@ public class Main {
         map = new char[N][N];
         for (int i = 0; i < N; ++i) Arrays.fill(map[i], '*');
         asterisk(N, N, N / 3);
-        for (int i = 0; i < N; ++i) {
-            for (int j = 0; j < N; ++j) {
-                sb.append(map[i][j]);
-            }
-            sb.append("\n");
-        }
+        for (char[] row : map) sb.append(row).append('\n');
         System.out.println(sb);
     }
 
