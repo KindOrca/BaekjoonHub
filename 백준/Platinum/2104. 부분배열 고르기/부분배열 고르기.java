@@ -2,9 +2,8 @@ import java.io.*;
 import java.util.*;
 
 class Node {
-    long val;
-    int idx;
-    public Node(long val, int idx) {
+    int val, idx;
+    public Node(int val, int idx) {
         this.val = val;
         this.idx = idx;
     }
