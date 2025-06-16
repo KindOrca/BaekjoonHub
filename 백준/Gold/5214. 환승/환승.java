@@ -38,8 +38,6 @@ public class Main {
                 visitedHyper[curHyper] = true;
                 for (int node : hyperTube.get(curHyper)) {
                     if (node == N) return idx;
-                    if (visitedNode[node]) continue;
-                    visitedNode[node] = true;
                     for (int hyper : nodes.get(node)) {
                         if (visitedHyper[hyper]) continue;
                         que.add(hyper);
