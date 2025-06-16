@@ -26,7 +26,7 @@ public class Main {
     static int BFS() {
         Queue<Integer> que = new ArrayDeque<>();
         boolean[] visitedHyper = new boolean[M];
-        boolean[] visitedNode = new boolean[N];
+        boolean[] visitedNode = new boolean[N + 1];
         for (int i : nodes.get(1)) que.add(i);
         int idx = 1;
         while (!que.isEmpty()) {
@@ -37,9 +37,9 @@ public class Main {
                 if (visitedHyper[curHyper]) continue;
                 visitedHyper[curHyper] = true;
                 for (int node : hyperTube.get(curHyper)) {
-                    if (node == N) return idx;
                     if (visitedNode[node]) continue;
                     visitedNode[node] = true;
+                    if (node == N) return idx;
                     for (int hyper : nodes.get(node)) {
                         que.add(hyper);
                     }
