@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
     static int N, cnt;
     static int[] in, out;
-    static long[] A, tree, lazy;
+    static long[] tree, lazy;
     static List<Integer>[] adj;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,7 +28,7 @@ public class Main {
                 int w = Integer.parseInt(st.nextToken());
                 update_range(0, N - 1, 1, in[b] - 1, out[b] - 1, w);
             } else {
-                sb.append(query(0, N - 1, 1, in[b] - 1, in[b] - 1)).append("\n");
+                sb.append(query(0, N - 1, 1, in[b] - 1)).append("\n");
             }
         }
         System.out.println(sb);
@@ -42,14 +42,13 @@ public class Main {
         out[n] = cnt;
     }
 
-    static long query(int st, int en, int idx, int lo, int hi) {
+    static long query(int st, int en, int idx, int pos) {
         update_lazy(st, en, idx);
-        if (hi < st || en < lo) return 0;
-        if (lo <= st && en <= hi) return tree[idx];
+        if (pos < st || en < pos) return 0;
+        if (st == en) return tree[idx];
         int mid = (st + en) / 2;
-        long le = query(st, mid, 2 * idx, lo, hi);
-        long ri = query(mid + 1, en, 2 * idx + 1, lo, hi);
-        return le + ri;
+        if (pos <= mid) return query(st, mid, 2 * idx, pos);
+        else return query(mid + 1, en, 2 * idx + 1, pos);
     }
 
     static void update_range(int st, int en, int idx, int lo, int hi, long val) {
@@ -82,7 +81,6 @@ public class Main {
     static void initArray() {
         in = new int[N + 1];
         out = new int[N + 1];
-        A = new long[N + 1];
         tree = new long[4 * N];
         lazy = new long[4 * N];
         adj = new List[N + 1];
