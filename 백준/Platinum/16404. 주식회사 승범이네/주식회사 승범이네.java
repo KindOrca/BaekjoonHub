@@ -28,7 +28,7 @@ public class Main {
                 int w = Integer.parseInt(st.nextToken());
                 update_range(0, N - 1, 1, in[b] - 1, out[b] - 1, w);
             } else {
-                sb.append(query(0, N - 1, 1, in[b] - 1)).append("\n");
+                sb.append(query(0, N - 1, 1, in[b] - 1, in[b] - 1)).append("\n");
             }
         }
         System.out.println(sb);
@@ -42,13 +42,14 @@ public class Main {
         out[n] = cnt;
     }
 
-    static long query(int st, int en, int idx, int pos) {
+    static long query(int st, int en, int idx, int lo, int hi) {
         update_lazy(st, en, idx);
-        if (pos < st || en < pos) return 0;
-        if (st == en) return tree[idx];
+        if (hi < st || en < lo) return 0;
+        if (lo <= st && en <= hi) return tree[idx];
         int mid = (st + en) / 2;
-        if (pos <= mid) return query(st, mid, 2 * idx, pos);
-        else return query(mid + 1, en, 2 * idx + 1, pos);
+        long le = query(st, mid, 2 * idx, lo, hi);
+        long ri = query(mid + 1, en, 2 * idx + 1, lo, hi);
+        return le + ri;
     }
 
     static void update_range(int st, int en, int idx, int lo, int hi, long val) {
