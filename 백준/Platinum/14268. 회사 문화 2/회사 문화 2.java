@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int N, cnt;
+    static int n, cnt;
     static int[] in, out;
     static long[] tree, lazy;
     static List<Integer>[] adj;
@@ -10,25 +10,28 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
         initArray();
         st = new StringTokenizer(br.readLine(), " ");
         st.nextToken();
-        for (int i = 2; i < N + 1; ++i) {
+        for (int i = 2; i < n + 1; ++i) {
             int p = Integer.parseInt(st.nextToken());
             adj[p].add(i);
         }
         dfs(1);
-        for (int i = 0; i < M; ++i) {
+        for (int i = 0; i < m; ++i) {
             st = new StringTokenizer(br.readLine(), " ");
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            if (a == 1) {
-                int w = Integer.parseInt(st.nextToken());
-                update_range(0, N - 1, 1, in[b] - 1, out[b] - 1, w);
-            } else {
-                sb.append(query(0, N - 1, 1, in[b] - 1)).append("\n");
+            switch (a) {
+                case 1:
+                    long w = Long.parseLong(st.nextToken());
+                    update_range(0, n - 1, 1, in[b] - 1, out[b] - 1, w);
+                    break;
+                case 2:
+                    sb.append(query(0, n - 1, 1, in[b] - 1, in[b] - 1)).append("\n");
+                    break;
             }
         }
         System.out.println(sb);
@@ -42,13 +45,14 @@ public class Main {
         out[n] = cnt;
     }
 
-    static long query(int st, int en, int idx, int pos) {
+    static long query(int st, int en, int idx, int lo, int hi) {
         update_lazy(st, en, idx);
-        if (pos < st || en < pos) return 0;
-        if (st == en) return tree[idx];
+        if (hi < st || en < lo) return 0;
+        if (lo <= st && en <= hi) return tree[idx];
         int mid = (st + en) / 2;
-        if (pos <= mid) return query(st, mid, 2 * idx, pos);
-        else return query(mid + 1, en, 2 * idx + 1, pos);
+        long le = query(st, mid, 2 * idx, lo, hi);
+        long ri = query(mid + 1, en, 2 * idx + 1, lo, hi);
+        return le + ri;
     }
 
     static void update_range(int st, int en, int idx, int lo, int hi, long val) {
@@ -79,12 +83,12 @@ public class Main {
     }
 
     static void initArray() {
-        in = new int[N + 1];
-        out = new int[N + 1];
-        tree = new long[4 * N];
-        lazy = new long[4 * N];
-        adj = new List[N + 1];
-        for (int i = 1; i < N + 1; ++i) {
+        in = new int[n + 1];
+        out = new int[n + 1];
+        tree = new long[4 * n];
+        lazy = new long[4 * n];
+        adj = new List[n + 1];
+        for (int i = 1; i < n + 1; ++i) {
             adj[i] = new ArrayList<>();
         }
     }
