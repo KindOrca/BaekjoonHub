@@ -25,9 +25,9 @@ public class Main {
             int i = Integer.parseInt(st.nextToken());
             if (t == 1) {
                 int w = Integer.parseInt(st.nextToken());
-                update(0, n - 1, 1, in[i] - 1, w);
+                update(1, n, 1, in[i], w);
             } else {
-                sb.append(query(0, n - 1, 1, in[i] - 1, out[i] - 1)).append("\n");
+                sb.append(query(1, n, 1, in[i], out[i])).append("\n");
             }
         }
         System.out.println(sb);
