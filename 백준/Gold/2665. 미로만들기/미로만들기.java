@@ -31,7 +31,7 @@ public class Main {
         Deque<Point> deq = new ArrayDeque<>();
         deq.add(new Point(0, 0));
         int[][] visited = new int[N][N];
-        for (int i = 0; i < N; ++i) Arrays.fill(visited[i], 2500);
+        for (int i = 0; i < N; ++i) Arrays.fill(visited[i], -1);
         visited[0][0] = 0;
         int nx, ny;
         while (!deq.isEmpty()) {
@@ -41,12 +41,11 @@ public class Main {
                 nx = p.x + dx[i];
                 ny = p.y + dy[i];
                 if (nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
+                if (visited[ny][nx] != -1) continue;
                 if (map[ny][nx] == 0) {
-                    if (visited[ny][nx] <= visited[p.y][p.x] + 1) continue;
                     visited[ny][nx] = visited[p.y][p.x] + 1;
                     deq.addLast(new Point(nx, ny));
                 } else {
-                    if (visited[ny][nx] <= visited[p.y][p.x]) continue;
                     visited[ny][nx] = visited[p.y][p.x];
                     deq.addFirst(new Point(nx, ny));
                 }
