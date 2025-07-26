@@ -2,17 +2,17 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int N;
     static int[] tree, lazy;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        N = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(st.nextToken());
         st.nextToken();
         int Q = Integer.parseInt(st.nextToken());
-        initArray();
-        init(0, N - 1, 1);
+        tree = new int[4 * N];
+        lazy = new int[4 * N];
+        Arrays.fill(tree, 1);
         while (Q-- > 0) {
             st = new StringTokenizer(br.readLine(), " ");
             String s = st.nextToken();
@@ -38,15 +38,7 @@ public class Main {
         }
         System.out.println(sb);
     }
-
-    static void init(int st, int en, int idx) {
-        tree[idx] = 1;
-        if (st == en) return;
-        int mid = (st + en) / 2;
-        init(st, mid, 2 * idx);
-        init(mid + 1, en, 2 * idx + 1);
-    }
-
+    
     static int query(int st, int en, int idx, int lo, int hi) {
         update_lazy(st, en, idx);
         if (hi < st || en < lo) return 0;
@@ -82,10 +74,5 @@ public class Main {
             lazy[2 * idx + 1] = lazy[idx];
         }
         lazy[idx] = 0;
-    }
-
-    static void initArray() {
-        tree = new int[4 * N];
-        lazy = new int[4 * N];
     }
 }
