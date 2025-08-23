@@ -4,6 +4,7 @@ import java.util.*;
 public class Main {
     static int N;
     static long[] A, tree, lazy;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
