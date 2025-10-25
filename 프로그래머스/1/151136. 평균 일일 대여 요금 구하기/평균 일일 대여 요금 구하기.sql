@@ -1,3 +1,3 @@
-select round(avg(daily_fee)) AVERAGE_FEE
-from car_rental_company_car
-where car_type = 'SUV'
+SELECT ROUND(AVG(DAILY_FEE)) AS AVERAGE_FEE
+FROM CAR_RENTAL_COMPANY_CAR
+WHERE CAR_TYPE = 'SUV';
